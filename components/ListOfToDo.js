@@ -1,31 +1,40 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity } from "react-native";
-import { ListItem } from "react-native-elements";
+import { ScrollView } from "react-native";
+import ToDos from "./ToDos"
 
 class ListOfToDo extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      things: [{title: "Meditar", description: "Sei"},
+               {title: "Estudar", description: " "},
+               {title: "Estudar", description: " "},
+               {title: "Estudar", description: " "},
+               {title: "Estudar", description: " "},
+               {title: "Estudar", description: " "}]
+    };
+  }
+
   render() {
 
-    const list = [
-      {
-        title: "Meditar"
-      },
-      {
-        title: "Ler"
-      }
-    ];
-    
+    const { things } = this.state
+    things.reverse();
+
     return(
-      <View>
-        {list.map((item, i) => (
-            <TouchableOpacity>
-              <ListItem 
-                key={i} 
-                title={item.title} />
-            </TouchableOpacity>
-          ))}
-      </View>
-    )
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        keyboardDismissMode='on-drag'
+      >
+        { things.map( thing =>  
+          <ToDos
+            thing={ thing }
+            key={ thing.id }
+          /> 
+        ) } 
+        
+      </ScrollView>
+    );
   }
 }
 
