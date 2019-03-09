@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button,
   TextInput,
   ScrollView
 } from "react-native";
@@ -43,10 +42,9 @@ export default class App extends React.Component {
     this.setState({ modalVisibility: !this.state.modalVisibility });
   };
 
-  removeThing = index => {
+  removeThing = acess => {
     var copy = this.state.things;
-    const acess = index - 1;
-
+    
     copy.splice(acess, 1);
     this.setState({ things: copy });
   };
@@ -81,16 +79,19 @@ export default class App extends React.Component {
               value={description}
             />
           </View>
-          <Text></Text>
-          <Button
-            onPress={() => this.closeModal()}
-            title="Adicionar"
-            style={styles.button}
-          />
+
+            <TouchableOpacity 
+              onPress={() => this.closeModal()}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}> Adicionar </Text>
+
+            </TouchableOpacity>
+
         </Modal>
 
         <View style={styles.preHeader}>
-          <Text style={styles.preHeaderText}> ToDo App </Text>
+          <Text style={styles.preHeaderText}> ToDo List </Text>
         </View>
 
         <View style={styles.header}>
@@ -107,8 +108,11 @@ export default class App extends React.Component {
             showsVerticalScrollIndicator={false}
             keyboardDismissMode="on-drag"
           >
-            {things.map(thing => (
-              <ToDos thing={thing} />
+            {things.map((thing, index) => (
+              <ToDos thing={thing}
+                      key={index}
+                      removeThing={this.removeThing}
+                      acess={index} />
             ))}
           </ScrollView>
         </View>
@@ -137,6 +141,16 @@ const styles = StyleSheet.create({
     marginBottom: "27%",
     alignItems: "center",
     backgroundColor: "#fff"
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: "green",
+    marginTop: 10,
+    padding: 15
+  },
+  buttonText:{
+    color: "white",
+    fontWeight: "bold"
   },
   preHeaderText: {
     fontSize: 25,
@@ -168,7 +182,7 @@ const styles = StyleSheet.create({
     flex: 0.95,
     flexDirection: "column",
     justifyContent: "flex-start",
-    backgroundColor: "#fffdd0"
+    backgroundColor: "#fff"
   },
   TextInput: {
     borderColor: "gray",
@@ -181,11 +195,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 8,
     borderColor: "#6C7A89"
-  },
-  button: {
-    height: 50,
-    width: 100,
-    color: "#EEDFA6"
   },
   footer: {
     flex: 0.05,

@@ -6,18 +6,16 @@ import { Ionicons } from "@expo/vector-icons";
 class ToDos extends Component {
   render() {
     const { title, description } = this.props.thing;
-
+    const { acess } = this.props;
     return (
-      <Card style={style.card}
-            transparent={true}>
-
+      <Card>
         <CardItem header>
 
           <View style={style.headerView}>
             <Text style={style.headerText}> {title} </Text>
 
             <View style={style.iconView}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => this.props.removeThing(acess)}>
                 <Ionicons name="md-trash" size={40} color={"gray"} />
               </TouchableOpacity>
             </View>
@@ -42,9 +40,6 @@ class ToDos extends Component {
 export default ToDos;
 
 const style = StyleSheet.create({
-  card: {
-    borderRadius: 20
-  },
   headerView: {
     flex: 1,
     flexDirection: "row"  
