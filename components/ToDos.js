@@ -1,27 +1,32 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Card, CardItem } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
 
 class ToDos extends Component {
+  render() {
+    const { title, description } = this.props.thing;
 
-  render(){
-    const {title, description} = this.props.thing;
+    return (
+      <Card style={{ borderRadius: 7 }}>
 
-    return(
-      <TouchableOpacity>
-        <Card style={{ borderRadius: 7}}>
+        <CardItem header>
 
-          <CardItem header>
+          <View style={{ flexDirection: "row", backgroundColor: "#EEDFA6" }}>
             <Text style={{ fontSize: 25 }}> {title} </Text>
-          </CardItem>
+            <TouchableOpacity>
+              <View style={{ alignItems: "flex-end" }}>
+                <Ionicons name="md-trash" size={30} style />
+              </View>
+            </TouchableOpacity>
+          </View>
 
-          <CardItem cardBody>
-            <Text style={{ fontSize: 15 }}>  {description}  </Text>
-          </CardItem>
+        </CardItem>
 
-        </Card>
-      </TouchableOpacity>
-
+        <CardItem cardBody>
+          <Text style={{ fontSize: 15 }}> {description} </Text>
+        </CardItem>
+      </Card>
     );
   }
 }

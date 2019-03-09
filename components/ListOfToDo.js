@@ -4,22 +4,13 @@ import ToDos from "./ToDos"
 
 class ListOfToDo extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      things: [{title: "Meditar", description: "Sei"},
-               {title: "Estudar", description: " "},
-               {title: "Estudar", description: " "},
-               {title: "Estudar", description: " "},
-               {title: "Estudar", description: " "},
-               {title: "Estudar", description: " "}]
-    };
+  state = {
+    things: []
   }
 
   render() {
 
-    const { things } = this.state
-    things.reverse();
+    var { things } = this.state.things;
 
     return(
       <ScrollView 
