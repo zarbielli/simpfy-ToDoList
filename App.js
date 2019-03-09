@@ -27,17 +27,28 @@ export default class App extends React.Component {
   changeDescription = value => {
     this.setState({ description: value });
   };
+
   openModal = () => {
-    this.setState({ modalVisibility: !this.state.modalVisibility });
+    this.setState({
+      modalVisibility: !this.state.modalVisibility
+    });
   };
 
-  closeModal = async () => {
+  closeModal = () => {
     const { name, description } = this.state;
 
-    await this.setState(prevState => ({
+    this.setState(prevState => ({
       things: [...prevState.things, { title: name, description: description }]
     }));
     this.setState({ modalVisibility: !this.state.modalVisibility });
+  };
+
+  removeThing = index => {
+    var copy = this.state.things;
+    const acess = index - 1;
+
+    copy.splice(acess, 1);
+    this.setState({ things: copy });
   };
 
   render() {
@@ -47,11 +58,7 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 50, fontFamily: "Roboto", color: "#696969", fontWeight: "bold", fontStyle: "italic",
-                        alignContent: "center", justifyContent: "center", alignItems: "center",
-                        flexDirection: "row" }}>     ToDo App</Text>
-        <Text> </Text>
-
+      
         <Modal
           style={styles.modal}
           animationIn={"slideInUp"}
@@ -74,13 +81,24 @@ export default class App extends React.Component {
               value={description}
             />
           </View>
-          <Button onPress={() => this.closeModal()} title="Adicionar" style={styles.button}/>
+          <Text></Text>
+          <Button
+            onPress={() => this.closeModal()}
+            title="Adicionar"
+            style={styles.button}
+          />
         </Modal>
 
+        <View style={styles.preHeader}>
+          <Text style={styles.preHeaderText}> ToDo App </Text>
+        </View>
+
         <View style={styles.header}>
-          <Text style={{ fontSize: 25 }}>      Adicione nova tarefa </Text>
+          <Text style={styles.headerText}> Adicione nova tarefa </Text>
           <TouchableOpacity onPress={() => this.openModal()}>
-            <Ionicons name="md-add-circle-outline" size={40} />
+            <Ionicons name="md-add-circle-outline" 
+                      size={40} 
+                      color={"white"} />
           </TouchableOpacity>
         </View>
 
@@ -94,6 +112,8 @@ export default class App extends React.Component {
             ))}
           </ScrollView>
         </View>
+        
+        <View style={styles.footer} />
       </View>
     );
   }
@@ -101,9 +121,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 23,
-    backgroundColor: "#EEDFA6"
+    flex: 1
   },
   ModalView: {
     flex: 1,
@@ -120,15 +138,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff"
   },
-  header: {
-    flex: 0.1,
+  preHeaderText: {
+    fontSize: 25,
+    padding: 26,
+    color: "white"
+  },
+  preHeader: {
     flexDirection: "row",
-    marginTop: 3
+    backgroundColor: "#EEDFA6",
+    alignItems: "center",
+    justifyContent: "center",
+    borderTopWidth: 25,
+    borderTopColor: "#EEDFA6"
+  },
+  header: {
+    flexDirection: "row",
+    backgroundColor: "#EEDFA6",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 10,
+    borderBottomColor: "#ddd"
+  },
+  headerText: {
+    fontSize: 25,
+    padding: 26,
+    color: "white"
   },
   body: {
-    flex: 0.9,
+    flex: 0.95,
     flexDirection: "column",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    backgroundColor: "#ddd"
   },
   TextInput: {
     borderColor: "gray",
@@ -142,9 +182,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#6C7A89"
   },
-  button:{
+  button: {
     height: 50,
     width: 100,
     color: "#EEDFA6"
+  },
+  footer: {
+    flex: 0.05,
+    backgroundColor: "#EEDFA6"
   }
 });
