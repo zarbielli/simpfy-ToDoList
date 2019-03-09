@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   preHeaderText: {
     fontSize: 25,
-    padding: 26,
+    padding: 20,
     color: "white"
   },
   preHeader: {
@@ -157,18 +157,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderBottomWidth: 10,
-    borderBottomColor: "#ddd"
+    borderBottomColor: "#fffdd0"
   },
   headerText: {
     fontSize: 25,
-    padding: 26,
+    padding: 20,
     color: "white"
   },
   body: {
     flex: 0.95,
     flexDirection: "column",
     justifyContent: "flex-start",
-    backgroundColor: "#ddd"
+    backgroundColor: "#fffdd0"
   },
   TextInput: {
     borderColor: "gray",
